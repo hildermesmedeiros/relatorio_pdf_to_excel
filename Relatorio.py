@@ -16,7 +16,7 @@ class Window(QWidget):
     def UI(self):
         vbox=QVBoxLayout()
         hbox=QHBoxLayout()
-        fileButton=QPushButton("Abrir arquivo")
+        fileButton=QPushButton("Escolher o PDF")
         fileButton.clicked.connect(self.openFile)
         vbox.addLayout(hbox)
         hbox.addStretch()
@@ -86,11 +86,15 @@ class Window(QWidget):
                         writer.sheets['Relatório'].set_column(col_idx, col_idx, column_length)
 
                     writer.save()
+                    box = QMessageBox.information(self, "Arquivo salvo", "Gostaria de sair?",
+                                                   QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+                    if box == QMessageBox.Yes:
+                        sys.exit()
+                    else:
+                        pass
             except Exception as e:
                 print(x)
                 print(e)
-                raise
-
 
 def main():
     App=QApplication(sys.argv)
